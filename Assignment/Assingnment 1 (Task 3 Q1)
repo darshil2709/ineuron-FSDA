@@ -1,0 +1,28 @@
+CREATE database transactions
+use transactions
+CREATE TABLE transactions (
+Amount INTEGER NOT NULL 
+,Date DATE NOT NULL
+);
+
+INSERT INTO transactions (Amount, Date) VALUES (1000, '2020-01-06');
+INSERT INTO transactions (Amount, Date) VALUES (-10, '2020-01-14');
+INSERT INTO transactions (Amount, Date) VALUES (-75, '2020-01-20');
+INSERT INTO transactions (Amount, Date) VALUES (-5, '2020-01-25');
+INSERT INTO transactions (Amount, Date) VALUES (-4, '2020-01-29');
+INSERT INTO transactions (Amount, Date) VALUES (2000, '2020-03-10');
+INSERT INTO transactions (Amount, Date) VALUES (-75, '2020-03-12'); 
+INSERT INTO transactions (Amount, Date) VALUES (-20, '2020-03-15');
+INSERT INTO transactions (Amount, Date) VALUES (40, '2020-03-15');
+INSERT INTO transactions (Amount, Date) VALUES (-50, '2020-03-17');
+INSERT INTO transactions (Amount, Date) VALUES (200, '2020-10-10');
+INSERT INTO transactions (Amount, Date) VALUES (-200, '2020-10-10');
+
+    
+SELECT sum(amount) - (SELECT (12 - count(*))*5 
+FROM (
+SELECT 
+sum(case when amount < 0 then 1 else 0 end) as count, 
+sum(case when amount < 0 then amount else 0 end) as negative_Value FROM transactions GROUP BY date_trunc('month', date)
+ HAVING negative_Value < -100 and count >= 3) as derived_table) 
+ as balance FROM transactions; 
