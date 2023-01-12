@@ -1,0 +1,44 @@
+create database Phone_calls
+
+create table phones ( 
+name varchar(20) not null unique, 
+phone_number integer not null unique
+);
+create table calls ( 
+id integer not null, 
+caller integer not null, 
+callee integer not null, 
+call_duration integer not null, unique(id)
+);
+
+
+
+USE Phone_calls
+
+SELECT * FROM PHONES
+
+insert into phones (name, phone_number) values ('mary', '1234');
+insert into phones (name, phone_number) values ('tammy', '2345');
+insert into phones (name, phone_number) values ('bruce', '3456');
+insert into phones (name, phone_number) values ('maggie', '9999');
+
+select *from calls
+
+insert into calls (id, caller, callee, call_duration) values ('13', '1234','9999', '8');
+insert into calls (id, caller, callee, call_duration) values ('16', '3456', '2345', '1');
+insert into calls (id, caller, callee, call_duration) values ('27', '2345', '9999', '4');
+insert into calls (id, caller, callee, call_duration) values ('7', '9999', '3456', '3');
+insert into calls (id, caller, callee, call_duration) values ('25', '3456', '1234', '1');
+insert into calls (id, caller, callee, call_duration) values ('3', '2345', '1234', '2');
+
+
+select name,sum(call_duration) as total_duration
+from Phones,calls
+where (phone_number=caller or phone_number=callee)
+group by name
+having total_duration>=10;
+
+
+
+
+
