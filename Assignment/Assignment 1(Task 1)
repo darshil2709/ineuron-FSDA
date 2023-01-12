@@ -1,0 +1,24 @@
+create database shopping_histroy;
+
+CREATE TABLE shopping_histroy(
+product varchar(30) NOT NULL,
+quantity INTEGER not null,
+unit_price INTEGER not null
+);
+USE warehouse shopping_histroy 
+insert into shopping_histroy(product, quantity, unit_price) values ('eggs', '10', '6');
+insert into shopping_histroy(product, quantity, unit_price) values ('milk', '3', '46');
+insert into shopping_histroy(product, quantity, unit_price) values ('bathing soap', '2', '25');
+insert into shopping_histroy(product, quantity, unit_price) values ('milk', '1', '59');
+insert into shopping_histroy(product, quantity, unit_price) values ('deo', '2', '120');
+insert into shopping_histroy(product, quantity, unit_price) values ('bournvita', '2', '79');
+insert into shopping_histroy(product, quantity, unit_price) values ('bathing soap', '6', 30);
+insert into shopping_histroy(product, quantity, unit_price) values ('eggs', '12', '8');
+insert into shopping_histroy(product, quantity, unit_price) values ('detergent', '1', '90');
+insert into shopping_histroy(product, quantity, unit_price) values('detergent', '5', '10');
+select * from shopping_histroy
+
+SELECT product, SUM(unit_price) as total_spent
+FROM shopping_histroy
+GROUP BY product
+ORDER BY product DESC;
